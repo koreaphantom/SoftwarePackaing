@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 XML의 구조대로 구현될 클래스의 이름 => Impl클래스를 대체한다. -->
+<mapper namespace="ProfessorMapper">
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="professor" type="com.example.myschool.model.Professor">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="profno" column="profno" />
+		<result property="name" column="name" />
+		<result property="userid" column="userid" />
+		<result property="position" column="position" />
+		<result property="sal" column="sal" />
+		<result property="hiredate" column="hiredate" />
+		<result property="comm" column="comm" />
+		<result property="deptno" column="deptno" />
+	</resultMap>
+	
+	<!-- 교수목록을 조회한다 -->
+    <select id="selectProfessorList" parameterType="com.example.myschool.model.Professor" resultMap="professor">
+        SELECT profno, name, userid, position, sal, hiredate, comm, deptno FROM professor
+    </select>
+</mapper> 

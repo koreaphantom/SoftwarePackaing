@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- MySQL 연결 설정 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/myschool?characterEncoding=UTF8&amp;useSSL=false" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+	
+	<!-- MyBatis SqlSessionFactory 객체 설정 : config.xml의 역할 수행 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- DB접속 정보를 미리 정의해둔 MySQL JDBC의 dataSource로 처리한다. -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- Mapper의 경로를 설정한다. -->
+		<property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml" />
+	</bean>
+	
+	<!-- sqlSession 객체 생성 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+</beans>

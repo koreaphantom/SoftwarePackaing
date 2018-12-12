@@ -61,7 +61,11 @@ public class HomeController {
 			studentList = studentService.selectStudentList(student);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
+
+        System.out.println(departmentList.toString());
+        System.out.println(professorList.toString());
+        System.out.println(studentList.toString());
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("rt", "OK");
